@@ -21,6 +21,11 @@
                         {{ __('Tuotteet') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('kategoriat.index')" :active="request()->routeIs('kategoriat.index')">
+                        {{ __('Kategoriat') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->
@@ -91,6 +96,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('tuotteet.index')" :active="request()->routeIs('tuotteet.index')">
                 {{ __('Tuotteet') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('kategoriat.index')" :active="request()->routeIs('kategoriat.index')">
+                {{ __('Kategoriat') }}
             </x-responsive-nav-link>
         </div>
 

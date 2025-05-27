@@ -23,16 +23,16 @@
     <x-slot name="header">
         <div class="flex">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Tuotteet') }}
+                {{ __('Kategoriat') }}
             </h2>
 
             <!-- Navigation Links -->
             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
 
                 <!-- Näytetään lisää tuote nappi, jos kirjautunut käyttäjä isAdmin -->
-                @if(auth() -> user() -> isAdmin())
-                    <x-nav-link :href="route('tuotteet.create')" :active="request()->routeIs('tuotteet.create')">
-                        {{ __('Lisää tuote') }}
+                @if(auth()->user()->isAdmin())
+                    <x-nav-link :href="route('kategoriat.create')" :active="request()->routeIs('kategoriat.create')">
+                        {{ __('Lisää kategoria') }}
                     </x-nav-link>
                 @endif
 
@@ -55,47 +55,34 @@
                         <tr>
                             <th scope="col" class="px-6 py-3">ID</th>
                             <th scope="col" class="px-6 py-3">Nimi</th>
-                            <th scope="col" class="px-6 py-3">Hinta</th>
                             <th scope="col" class="px-6 py-3">Kuva</th>
-                            <th scope="col" class="px-6 py-3">Kategoria</th>
                             <th scope="col" class="px-6 py-3"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($tuotteet as $tuote)
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td class="px-6 py-4">{{ $tuote->id }}</td>
-                                <td class="px-6 py-4">{{ $tuote->nimi }}</td>
-                                <td class="px-6 py-4">{{ $tuote->hinta }} €</td>
+                        @forelse($kategoriat as $kategoria)
+                            <tr
+                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <td class="px-6 py-4">{{ $kategoria->id }}</td>
+                                <td class="px-6 py-4">{{ $kategoria->nimi }}</td>
                                 <td class="px-6 py-4">
-                                    @if($tuote->kuva)
-                                        <a href="{{ asset('storage/' . $tuote->kuva) }}">
-                                            <img src="{{ asset('storage/' . $tuote->kuva) }}" width="80">
+                                    @if($kategoria->kuva)
+                                        <a href="{{ asset('storage/' . $kategoria->kuva) }}">
+                                            <img src="{{ asset('storage/' . $kategoria->kuva) }}" width="80">
                                         </a>
                                     @else
                                         Ei kuvaa
                                     @endif
                                 </td>
-                                
-                                <!-- Tuotteen kategorian nimi -->
-                                <td class="px-6 py-4" style="display: flex; flex-direction: column; flex-wrap: wrap; align-content: flex-start; align-items: center;">
-
-                                    @if (isset($tuote->kategoria->kuva))
-                                    <a href="{{ asset(path: 'storage/' . $tuote->kategoria->kuva) }}">
-                                        <img src="{{ asset('storage/' . $tuote->kategoria->kuva) }}" width="50">
-                                    @endif
-
-                                    {{ $tuote->kategoria->nimi ?? 'Ei kategoriaa' }}
-                                </td>
 
                                 <td class="px-6 py-4">
                                     <div class="hallintanapit">
-                                        
+
                                         <!-- Näytetään muokkaa ja poista napit jos kirjautunut käyttäjä isAdmin -->
-                                        @if(auth() -> user() -> isAdmin())
+                                        @if(auth()->user()->isAdmin())
                                             <a class="hallintanappi" style="background-color: bisque;"
-                                                href="{{ route('tuotteet.edit', $tuote) }}">Muokkaa</a>
-                                            <form action="{{ route('tuotteet.destroy', $tuote) }}" method="POST">
+                                                href="{{ route('kategoriat.edit', $kategoria) }}">Muokkaa</a>
+                                            <form action="{{ route('kategoriat.destroy', $kategoria) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
 
@@ -103,7 +90,7 @@
                                                     onclick="return confirm('Poistetaanko?')">Poista</button>
                                             </form>
                                         @endif
-                                        
+
                                     </div>
                                 </td>
                             </tr>
@@ -111,7 +98,7 @@
                             <!-- Jos tuotteita ei ole -->
                         @empty
                             <tr>
-                                <td colspan="5">Ei tuotteita</td>
+                                <td colspan="5">Ei kategorioita</td>
                             </tr>
                         @endforelse
                     </tbody>
@@ -120,4 +107,5 @@
             </div>
         </div>
     </div>
+
 </x-app-layout>

@@ -20,6 +20,17 @@
                 <label for="kuva">Kuva:</label>
                 <input class="text-gray-900" type="file" name="kuva">
     
+                <label for="kategoria_id">Kategoria:</label>
+                <select class="text-gray-900" name="kategoria_id" required>
+                    <option value="">Valitse kategoria</option>
+                    @foreach ($kategoriat as $kategoria)
+                        <option value="{{ $kategoria -> id }}">
+                            {{ (isset($tuote) && $tuote -> kategoria_id == $kategoria -> id) ? 'selected' : '' }}
+                            {{ $kategoria -> nimi }}
+                        </option>
+                    @endforeach
+                </select>
+
                 <button type="submit" class="bg-blue-500">Tallenna</button>
             </div>
         </form>

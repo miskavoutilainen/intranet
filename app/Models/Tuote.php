@@ -10,6 +10,12 @@ class Tuote extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nimi', 'hinta', 'kuva'
+        'nimi', 'hinta', 'kuva', 'kategoria_id'
     ];
+
+    // Tällä funktiolla voi tarkistaa, mihin kategoriaan tuote kuuluu
+    public function kategoria() {
+        return $this->belongsTo(Kategoria::class);
+    }
+
 }
