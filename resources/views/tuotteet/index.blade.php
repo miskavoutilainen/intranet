@@ -58,7 +58,12 @@
                             <th scope="col" class="px-6 py-3">Hinta</th>
                             <th scope="col" class="px-6 py-3">Kuva</th>
                             <th scope="col" class="px-6 py-3">Kategoria</th>
-                            <th scope="col" class="px-6 py-3"></th>
+                            @if(auth() -> user() -> isAdmin())
+                                <th scope="col" class="px-6 py-3">Toiminnot</th>
+                            @else
+                                <th scope="col" class="px-6 py-3">Vain selailu mahdollista</th>
+                            @endif
+
                         </tr>
                     </thead>
                     <tbody>
